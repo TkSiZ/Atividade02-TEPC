@@ -6,7 +6,6 @@ import time
 from dotenv import load_dotenv
 import questionary
 import tftpy
-from tqdm import tqdm
 
 
 load_dotenv()
@@ -26,23 +25,6 @@ SERVER_IP = os.getenv("SERVER_IP")
 SERVER_BIND = os.getenv("SERVER_BIND", "0.0.0.0")
 SERVER_PORT = int(os.getenv("SERVER_PORT", 69))
 
-class ProgressBar:
-    def __init__(self):
-        self.pbar = None
-
-    def hook(self, pkt):
-        if self.pbar is None:
-            self.pbar = tqdm(
-                total=pkt.totalsize,
-                unit="B",
-                unit_scale=True,
-                desc="Transfer"
-            )
-
-        self.pbar.update(len(pkt.data))
-
-        if pkt.blocknumber * 512 >= pkt.totalsize:
-            self.pbar.close()
 
 def tftp_client():
     if not SERVER_IP:
@@ -64,11 +46,10 @@ def tftp_client():
 
             logger.info(f"Download requested: {remote} -> {local}")
 
-            progress = ProgressBar()
             start = time.time()
 
             try:
-                client.download(remote, local, packethook=progress.hook)
+                client.download(remote, local)
 
                 elapsed = time.time() - start
                 size = os.path.getsize(local)
@@ -97,7 +78,7 @@ def tftp_client():
                 continue
 
             logger.info(f"Upload requested: {local_path} -> {remote_filename}")
-            progress = ProgressBar()
+            
             start = time.time()
 
             try:
