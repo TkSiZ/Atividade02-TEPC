@@ -31,6 +31,7 @@ projeto-tftp/
 │
 ├── tftp.py
 ├── .env
+├── config.py
 ├── tftpboot/
 └── README.md
 ```
@@ -40,6 +41,7 @@ projeto-tftp/
 - **tftp.py** → script principal que contém o cliente e o servidor
 - **.env** → arquivo com variáveis de ambiente
 - **tftpboot/** → pasta onde os arquivos serão armazenados no servidor
+- **config.py** → script onde cria o .env e tftboot com as permissões e o ip local correto
 
 ---
 
@@ -165,6 +167,17 @@ No Windows:
 ---
 
 # 8. Executando o servidor
+
+Caso os arquivos não estejam configurados
+
+```bash
+python config.py
+```
+Saída esperada:
+
+```
+Your Local IP Address is: 192.168.x.xxx
+```
 
 Abra um terminal na pasta do projeto e execute:
 
