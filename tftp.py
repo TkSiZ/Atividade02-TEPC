@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 import time
+import threading
 
 from dotenv import load_dotenv
 import questionary
@@ -37,10 +38,29 @@ def tftp_client():
     while True:
         choice = questionary.select(
             "What do you want to do?",
-            choices=["Download file", "Upload file", "Exit"],
+            choices=["List files", "Download file", "Upload file", "Exit"],
         ).ask()
+        
+        if choice == "List files":
+            logger.info("Listing remote files via index.txt...")
+            temp_index = "temp_index.txt"
 
-        if choice == "Download file":
+            try:
+                client.download("index.txt", temp_index)
+                print("\n---Available files---")
+
+                with open(temp_index, "r") as f:
+                    files = f.read()
+                    print(files if files.strip() else "(Server empty)")
+                
+                print("-----------------\n")
+
+                os.remove(temp_index)
+            except Exception as error:
+                logger.error(f"Files listing error: {error}")
+                print(f"Error {error}")
+
+        elif choice == "Download file":
             remote = questionary.text("Remote filename:").ask()
             local = questionary.text("Local filename:").ask()
 
@@ -101,6 +121,24 @@ def tftp_client():
             break
 
 
+def update_index_file(tftp_root_dir):
+    index_path = os.path.join(tftp_root_dir, "index.txt")
+
+    while True:
+        try:
+            files = os.listdir(tftp_root_dir)
+
+            if "index.txt" in files:
+                files.remove("index.txt")
+            
+            with open(index_path, "w") as f:
+                for file_name in files:
+                    f.write(f"{file_name}\n")
+        except Exception as error:
+            logger.error(f"Failed to update index file: {error}")
+        
+        time.sleep(5)
+
 def tftp_server():
     dir_name = "tftpboot"
     tftp_root_dir = os.path.abspath(dir_name)
@@ -110,6 +148,9 @@ def tftp_server():
     logger.info(f"TFTP root directory: {tftp_root_dir}")
 
     print("TFTP root:", tftp_root_dir)
+
+    index_thread = threading.Thread(target=update_index_file, args=(tftp_root_dir,), daemon=True)
+    index_thread.start()
 
     server = tftpy.TftpServer(tftproot=tftp_root_dir)
 
