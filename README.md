@@ -335,11 +335,11 @@ O sistema depende principalmente de:
 
 # 16. Testes
 -   Servidor inicializado
-![Console Servidor](imagens\server_console.png)
+![Console Servidor](imagens/server_console.png)
 -   Arquivo Enviado pelo cliente e recebido no servidor + arquivos presentes no servidor
-![Arquivo Enviado para o servidor](imagens\servidor.png)
+![Arquivo Enviado para o servidor](imagens/servidor.png)
 -   Lado do cliente enviando o arquivo e baixando um arquivo do servidor
-![Console do Cliente](imagens\console_client.png)
+![Console do Cliente](imagens/console_client.png)
 - Arquivo que foi baixado do servidor
 ![Arquivo baixado do servidor](imagens\arquivo_client.png)
 
