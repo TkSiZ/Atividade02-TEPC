@@ -342,3 +342,6 @@ O sistema depende principalmente de:
 ![Console do Cliente](imagens\console_client.png)
 - Arquivo que foi baixado do servidor
 ![Arquivo baixado do servidor](imagens\arquivo_client.png)
+
+# 17. Diagrama C4 de componentes
+![Diagrama C4 de componentes](imagens\C4_TFTP.png)
