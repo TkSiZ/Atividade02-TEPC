@@ -341,7 +341,7 @@ O sistema depende principalmente de:
 -   Lado do cliente enviando o arquivo e baixando um arquivo do servidor
 ![Console do Cliente](imagens/console_client.png)
 - Arquivo que foi baixado do servidor
-![Arquivo baixado do servidor](imagens\arquivo_client.png)
+![Arquivo baixado do servidor](imagens/arquivo_client.png)
 
 # 17. Diagrama C4 de componentes
-![Diagrama C4 de componentes](imagens\C4_TFTP.png)
+![Diagrama C4 de componentes](imagens/C4_TFTP.png)
