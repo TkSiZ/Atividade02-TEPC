@@ -15,9 +15,24 @@ Antes de executar o projeto, certifique-se de ter:
 
 Instalação das dependências:
 
+- Em Windows:
 ```bash
 # Execute dentro do seu VENV
 python -m pip install -r requirements.txt
+```
+
+- Em linux:
+```bash
+# Criar ambiente virtual
+python -m venv venv
+```
+```bash
+# Ativar Ambiente Virtual
+source ./venv/bin/activate
+```
+```bash
+# Baixar dependencias (obs: certifique-se de estar usando o python do venv com "which python")
+pip install -r requirements.txt
 ```
 
 ---
@@ -168,13 +183,20 @@ No Windows:
 
 ---
 
-# 8. Executando o servidor
+# 8. Executando o programa principal
 
 Caso os arquivos não estejam configurados
 
+- Em Windows:
 ```bash
 python config.py
 ```
+
+- Em Linux:
+```bash
+sudo <python-venv-path> config.py
+```
+
 Saída esperada:
 
 ```
@@ -183,12 +205,26 @@ Your Local IP Address is: 192.168.x.xxx
 
 Abra um terminal na pasta do projeto e execute:
 
+- Em Windows:
 ```bash
-python tftp.py --server
+python tftp.py
+```
+- Em Linux:
+```bash
+sudo <python-venv-path> tftp.py
 ```
 
 Saída esperada:
+```
+DEBUG:asyncio:Using selector: EpollSelector
+? This program is running as a: (Use arrow keys)
+ » server
+   client
+   None/Exit
+```
+## 8.1 Execução do servidor:
 
+Ao escolher server, a saída esperada deverá ser:
 ```
 Server on 0.0.0.0:69
 Starting receive loop...
@@ -200,11 +236,7 @@ O servidor ficará aguardando conexões.
 
 # 9. Executando o cliente
 
-Em outro terminal:
-
-```bash
-python tftp.py --client
-```
+Em outro terminal, realize os mesmos passos seguidos no ponto 8, mas escolhendo a opção "client", o resultado esperado será a exibição do menu como segue:
 
 Menu exibido:
 
