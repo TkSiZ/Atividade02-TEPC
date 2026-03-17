@@ -33,6 +33,7 @@ projeto-tftp/
 ├── .env
 ├── config.py
 ├── tftpboot/
+├── tftp.log
 └── README.md
 ```
 
@@ -42,6 +43,7 @@ projeto-tftp/
 - **.env** → arquivo com variáveis de ambiente
 - **tftpboot/** → pasta onde os arquivos serão armazenados no servidor
 - **config.py** → script onde cria o .env e tftboot com as permissões e o ip local correto
+- **tftpboot.log** → arquivo que registra todas as requisições feitas entre cliente e servidor
 
 ---
 
