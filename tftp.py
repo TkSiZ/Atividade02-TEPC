@@ -15,14 +15,14 @@ logging.basicConfig(level=logging.DEBUG)
 
 SERVER_IP = os.getenv("SERVER_IP")
 SERVER_BIND = os.getenv("SERVER_BIND", "0.0.0.0")
-
+TFTP_PORT = 69
 
 def tftp_client():
     if not SERVER_IP:
         print("Error: SERVER_IP not found in .env")
         return
 
-    client = tftpy.TftpClient(SERVER_IP, 69)
+    client = tftpy.TftpClient(SERVER_IP, TFTP_PORT)
 
     while True:
         choice = questionary.select(
@@ -117,21 +117,20 @@ def tftp_server():
     server = tftpy.TftpServer(tftproot=tftp_root_dir)
 
     try:
-        server.listen(SERVER_BIND, 69)
+        server.listen(SERVER_BIND, TFTP_PORT)
     except Exception as error:
         print(f"Server Error: {error}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    choice = questionary.select(
+        "This program is running as a:",
+        choices=["server", "client", "None/Exit"],
+    ).ask()
 
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("--client", action="store_true")
-    group.add_argument("--server", action="store_true")
-
-    args = parser.parse_args()
-
-    if args.client:
-        tftp_client()
-    elif args.server:
+    if choice == "server":
         tftp_server()
+    elif choice == "client":
+        tftp_client()
+    elif choice == "None/Exit":
+        print('Exiting program...')
